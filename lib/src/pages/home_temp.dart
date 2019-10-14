@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class HomePageTemp extends StatelessWidget {
 
+  final options = ['One', 'Two', 'Three', 'Four', 'Five'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,48 +11,44 @@ class HomePageTemp extends StatelessWidget {
         title: Text('Components Temp'),
       ),
       body: ListView(
-        children: <Widget>[
-          ListTile(
-            title: Text('Listtile Title'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 2'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 3'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 4'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 2'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 3'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 4'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 2'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 3'),
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Listtile Title 4'),
-          )
-        ],
+        children: _createListWidgetsShort()
       ),
     );
+  }
+
+  List<Widget> _createListWidgets(){
+    List<Widget> listWidgets = List<Widget>();
+    for (var option in options) {
+      listWidgets..add(
+        ListTile(
+          title: Text( option ),
+        )
+      )..add(Divider(
+        color: Colors.red,
+        height: 4.0,
+      ));
+    }
+    return listWidgets;
+  }
+
+  List<Widget> _createListWidgetsShort(){
+    final widgets = options.map((item){
+      return Column(
+        children: <Widget>[
+          ListTile(
+            title: Text( item ),
+            subtitle: Text('Subtitle'),
+            leading: Icon(Icons.account_balance_wallet),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: (){},
+          ),
+          Divider(
+            color: Colors.red,
+            height: 4.0,
+          )
+        ],
+      );
+    });
+    return widgets.toList();
   }
 }
