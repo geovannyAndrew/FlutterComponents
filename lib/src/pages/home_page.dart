@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widgets/src/pages/alert_page.dart';
 import 'package:flutter_widgets/src/providers/menu_provider.dart';
 import 'package:flutter_widgets/src/utils/icon_string_util.dart';
 
@@ -21,7 +20,7 @@ class HomePage extends StatelessWidget {
       future: menuProvider.loadData(),
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> asyncSnapshot){
         return ListView(
-          children: _createListItems(context, asyncSnapshot.data),
+          children: asyncSnapshot.data != null ? _createListItems(context, asyncSnapshot.data) : [],
         );
       },
     );
@@ -29,7 +28,7 @@ class HomePage extends StatelessWidget {
   }
 
   List<Widget> _createListItems(BuildContext context, List<dynamic> data) {
-    return data.map((item){
+    return data?.map((item){
       return Column(
         children: <Widget>[
           ListTile(
@@ -52,6 +51,6 @@ class HomePage extends StatelessWidget {
           )
         ],
       );
-    }).toList();
+    })?.toList();
   }
 }
