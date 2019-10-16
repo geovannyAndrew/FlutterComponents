@@ -39,10 +39,11 @@ class HomePage extends StatelessWidget {
               color: Colors.blue,
             ),
             onTap: (){
-              final route = MaterialPageRoute(
+              /*final route = MaterialPageRoute(
                 builder: (context) => AlertPage()
               );
-              Navigator.push(context, route);
+              Navigator.push(context, route);*/
+              Navigator.pushNamed(context, item['ruta']);
             },
           ),
           Divider(
