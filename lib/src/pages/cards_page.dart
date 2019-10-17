@@ -12,7 +12,11 @@ class CardPage extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            _cardType1()
+            _cardType1(),
+            SizedBox(
+              height: 8.0,
+            ),
+            _cardType2()
           ],
         ),
       ),
@@ -59,6 +63,28 @@ class CardPage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _cardType2() {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          FadeInImage(
+            image: NetworkImage('https://static.photocdn.pt/images/articles/2017_1/iStock-545347988.jpg'),
+            placeholder: AssetImage('assets/loading.gif'),
+            height: 250,
+            fit: BoxFit.cover,
+            fadeInDuration: Duration(
+              milliseconds: 200,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(8.0),
+            child: Text('I have no idea what to put'),
+          )
+        ],
       ),
     );
   }
