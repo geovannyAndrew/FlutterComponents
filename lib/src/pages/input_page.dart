@@ -8,10 +8,13 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
+  TextEditingController _inputFieldDateController = TextEditingController();
+  final List<String> _powers = ['Super Strenght', 'X Rays', 'Audio', 'Speed'];
+
   String _name = '';
   String _email = '';
   String _date = '';
-  TextEditingController _inputFieldDateController = TextEditingController();
+  String _powerSelected = 'X Rays';
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,8 @@ class _InputPageState extends State<InputPage> {
            _createPassword(),
            Divider(),
            _createDate(context),
+           Divider(),
+           _createDropdown(),
            Divider(),
            _createPerson(),
            Divider(),
@@ -176,6 +181,8 @@ class _InputPageState extends State<InputPage> {
   Widget _createPerson() {
     return ListTile(
       title: Text(_name),
+      subtitle: Text(_email),
+      trailing: Text(_powerSelected),
     );
   }
 
@@ -192,5 +199,38 @@ class _InputPageState extends State<InputPage> {
       _date = picked.toString();
       _inputFieldDateController.text = _date;
     }
+  }
+
+  List<DropdownMenuItem<String>> getOptionsDropdown(){
+    return _powers.map((power){
+      return DropdownMenuItem(
+        child: Text(power),
+        value: power,
+      );
+    }).toList();
+  }
+
+  Widget _createDropdown() {
+    return  Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(
+          width: 16.0,
+        ),
+        Expanded(
+          child: DropdownButton(
+            isExpanded: true,
+            value: _powerSelected,
+            items: getOptionsDropdown(),
+            onChanged: (opt){
+              setState(() {
+               _powerSelected = opt; 
+              });
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
