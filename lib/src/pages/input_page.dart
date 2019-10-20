@@ -9,6 +9,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
 
   String _name = '';
+  String _email = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,13 @@ class _InputPageState extends State<InputPage> {
          children: <Widget>[
            _createInput(),
            Divider(),
-           _createPerson()
+           _createEmail(),
+           Divider(),
+           _createPassword(),
+           Divider(),
+           _createPerson(),
+           Divider(),
+           
          ],
        ),
     );
@@ -58,6 +65,73 @@ class _InputPageState extends State<InputPage> {
         helperText: 'Helper Text',
         suffixIcon: Icon(Icons.accessibility),
         icon: Icon(Icons.phone)
+      ),
+    );
+  }
+
+
+  Widget _createEmail() {
+    return TextField(
+      onChanged: (String text){
+        setState(() {
+          _email = text;
+        });
+      },
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.yellow,
+            width: 3
+          )
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.yellow,
+            width: 3
+          )
+        ),
+        counter: Text('Letras ${_email.length}'),
+        counterStyle: TextStyle(
+          color: Colors.purple
+        ),
+        hintText: 'Email',
+        labelText: 'Email',
+        suffixIcon: Icon(Icons.alternate_email),
+        icon: Icon(Icons.email)
+      ),
+    );
+  }
+
+  Widget _createPassword() {
+    return TextField(
+      onChanged: (String text){
+        setState(() {
+          _email = text;
+        });
+      },
+      obscureText: true,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.yellow,
+            width: 3
+          )
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.yellow,
+            width: 3
+          )
+        ),
+        counter: Text('Letras ${_email.length}'),
+        counterStyle: TextStyle(
+          color: Colors.purple
+        ),
+        hintText: 'Password',
+        labelText: 'Password',
+        suffixIcon: Icon(Icons.visibility),
+        icon: Icon(Icons.lock)
       ),
     );
   }
