@@ -80,8 +80,7 @@ class _ListPageState extends State<ListPage> {
     });
     return Future.delayed(duration);
   }
-
-
+  
   _add10Images(){
     for(int i = 1; i < 10; i++){
       _lastItem++;
