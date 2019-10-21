@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class _ListPageState extends State<ListPage> {
   ScrollController _scrollController = ScrollController();
   List<int> _listNumbers = [];
   int _lastItem = 0;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -18,9 +21,16 @@ class _ListPageState extends State<ListPage> {
     _add10Images();
     _scrollController.addListener((){
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
-        _add10Images();
+        _fetchData();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -29,7 +39,12 @@ class _ListPageState extends State<ListPage> {
        appBar: AppBar(
          title: Text('ListView'),
        ),
-       body: _createList(),
+       body: Stack(
+         children: <Widget>[
+           _createList(),
+           _createLoading()
+         ],
+        ),
     );
   }
 
@@ -59,5 +74,43 @@ class _ListPageState extends State<ListPage> {
     setState(() {
       
     });
+  }
+
+  Future _fetchData() async{
+    _isLoading = true;
+    setState((){});
+    Timer(
+      Duration(seconds: 2), 
+      (){
+        _isLoading = false;
+        _add10Images();
+        _scrollController.animateTo(
+          _scrollController.position.pixels + 50,
+          curve: Curves.fastOutSlowIn,
+          duration: Duration(
+            milliseconds: 200
+          )
+        );
+      });
+  }
+
+  Widget _createLoading() {
+    if(_isLoading){
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Center(
+            child: CircularProgressIndicator()
+          ),
+          SizedBox(
+            height: 8.0,
+          )
+        ],
+      );
+    }
+    else{
+      return SizedBox();
+    }
   }
 }
