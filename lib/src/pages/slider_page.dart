@@ -10,6 +10,8 @@ class _SliderPageState extends State<SliderPage> {
 
   double _valueSlider = 200;
 
+  bool _blockCheck = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +23,9 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: <Widget>[
             _createSlider(),
+            _createCheckbox(),
+            _createCheckboxListTile(),
+            _createSwitch(),
             Expanded(
               child: _createImage()
             )
@@ -35,7 +40,7 @@ class _SliderPageState extends State<SliderPage> {
       activeColor: Colors.indigo,
       label: 'Animals size',
       //divisions: 20,
-      onChanged: (newValue){
+      onChanged: _blockCheck ? null : (newValue){
         setState(() {
           _valueSlider = newValue;
         });
@@ -53,6 +58,40 @@ class _SliderPageState extends State<SliderPage> {
       ),
       width: _valueSlider,
       fit: BoxFit.contain,
+    );
+  }
+
+  Widget _createCheckbox() {
+    return Checkbox(
+      value: _blockCheck,
+      onChanged: (value){
+        setState(() {
+         _blockCheck = value; 
+        });
+      },
+    );
+  }
+
+  Widget _createCheckboxListTile() {
+    return CheckboxListTile(
+      title: Text('CheckboxListTile'),
+      value: _blockCheck,
+      onChanged: (value){
+        setState(() {
+         _blockCheck = value; 
+        });
+      },
+    );
+  }
+
+  Widget _createSwitch() {
+    return Switch(
+      value: _blockCheck,
+      onChanged: (value){
+        setState(() {
+         _blockCheck = value; 
+        });
+      },
     );
   }
 }
